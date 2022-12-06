@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerInput : MonoBehaviour
 {
     public Body    Body = null;
     public View    View = null;
@@ -13,8 +13,6 @@ public class Player : MonoBehaviour
 
     public KeyCode ActionA     = KeyCode.Q;
     public KeyCode ActionB     = KeyCode.E;
-
-    public KeyCode HandActive = KeyCode.Mouse0;
 
     public float Sensitivity = 2.5f;
 
@@ -29,11 +27,7 @@ public class Player : MonoBehaviour
         View.RotateViewX( Input.GetAxis("Mouse X") * Sensitivity);
         View.RotateViewY(-Input.GetAxis("Mouse Y") * Sensitivity);
 
-        Hand.Activate(Input.GetKey(HandActive));
-        if (Input.GetKey(HandActive))
-        {
-            Hand.MakeActionA(Input.GetKeyDown(ActionA));
-            Hand.MakeActionB(Input.GetKeyDown(ActionB));
-        }
+        if (Input.GetKeyDown(ActionA)) Hand.TakeObject ();
+        if (Input.GetKeyDown(ActionB)) Hand.ThrowObject();
     }
 }

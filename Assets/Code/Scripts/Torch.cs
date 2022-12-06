@@ -2,41 +2,49 @@ using UnityEngine;
 
 public class Torch : MonoBehaviour
 {
-    private bool  IsTaken         = false;
-    private bool  IsActive        = false;
-    public  float TimeAttenuation = 0.0f ;
-    private float Timer           = 0.0f ;
+    private bool IsTaken = false;
+
 
     private void Update()
     {
-        if (IsActive && !IsTaken)
+
+    }
+    private void OnTriggerEnter(Collider Other)
+    {
+        if (Other.tag == "SourceFire")
         {
-            if (Timer < TimeAttenuation)
-            {
-                Timer += Time.deltaTime;
-            }
-            else
-            {
-                Timer    = 0    ;
-                IsActive = false;
-            }
+            Ignition();
         }
     }
 
-    public void Taking() 
+    public void Taking(Transform SourceRetention)
     {
         IsTaken = true;
+
+        Transform ThisTransform = GetComponent<Transform>();
+        Rigidbody ThisRigidbody = GetComponent<Rigidbody>();
+
+        ThisTransform.parent = SourceRetention;
+        ThisTransform.localPosition = Vector3.zero;
+        ThisTransform.localRotation = Quaternion.Euler(Vector3.zero);
+        ThisRigidbody.isKinematic = true;
     }
-    public void Throwing() 
-    {
+    public void Throwing()
+    { 
         IsTaken = false;
+
+        Transform ThisTransform = GetComponent<Transform>();
+        Rigidbody ThisRigidbody = GetComponent<Rigidbody>();
+
+        ThisTransform.parent = null;
+        ThisRigidbody.isKinematic = false;
     }
-    public void Arson() 
+    private void Ignition()
     {
-        IsActive = true;
+
     }
-    public void Attenuation() 
+    private void Fading()
     {
-        IsActive = false;
+        
     }
 }

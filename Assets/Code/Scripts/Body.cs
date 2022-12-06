@@ -39,9 +39,9 @@ public class Body : MonoBehaviour
         Transform.localPosition += DirectionMoveAll;
     }
 
-    public void MoveForward(bool Value) => ActiveMoveF = Value;
-    public void MoveBack   (bool Value) => ActiveMoveB = Value;
-    public void MoveLeft   (bool Value) => ActiveMoveL = Value;
-    public void MoveRight  (bool Value) => ActiveMoveR = Value;
-    public void RotationMove(float Value) => RotateMove = Value;
+    public void MoveForward (bool  Value) => ActiveMoveF = Value;
+    public void MoveBack    (bool  Value) => ActiveMoveB = Value;
+    public void MoveLeft    (bool  Value) => ActiveMoveL = Value;
+    public void MoveRight   (bool  Value) => ActiveMoveR = Value;
+    public void RotationMove(float Value) => RotateMove  = Value;
 }

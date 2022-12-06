@@ -4,8 +4,17 @@ public class Bonfire : MonoBehaviour
 {
     private bool Active = false;
 
-    public void Activated() 
+
+    private void OnTriggerEnter(Collider Other)
     {
-        Active = true;
+        if (Other.tag == "SourceFire")
+        {
+            Ignition();
+        }
+    }
+
+    private void Ignition()
+    {
+
     }
 }

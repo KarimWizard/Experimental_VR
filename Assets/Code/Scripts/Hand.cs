@@ -2,37 +2,38 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    private Transform Transform;
-
-    private bool Active ;
-    private bool ActionA;
-    private bool ActionB;
-
-    public float DistanceRay;
+    private Transform Transform  ;
+    public  float     DistanceRay;
+    public  Torch     TakeTorch  ;
 
     private void Start()
     {
         Transform = this.transform;
     }
-    private void Update()
-    {   
-        if (Active)
+
+    public void TakeObject()
+    {
+        if (TakeTorch == null)
         {
             Vector3 Origin    = transform.position;
             Vector3 Direction = transform.forward ;
 
             Physics.Raycast(Origin, Direction, out RaycastHit Hit, DistanceRay);
 
+            if (Hit.transform     != null  )
             if (Hit.transform.tag == "Item")
             {
-
-                if (ActionA) { }
-                if (ActionB) { }
+                TakeTorch = Hit.transform.GetComponent<Torch>();
+                TakeTorch.Taking(Transform);
             }
         }
     }
-
-    public void Activate   (bool Value) => Active  = Value;
-    public void MakeActionA(bool Value) => ActionA = Value;
-    public void MakeActionB(bool Value) => ActionB = Value;
+    public void ThrowObject()
+    {
+        if (TakeTorch != null)
+        {
+            TakeTorch.Throwing();
+            TakeTorch = null;
+        }
+    }
 }
