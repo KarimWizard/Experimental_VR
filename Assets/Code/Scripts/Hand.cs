@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class Hand : MonoBehaviour
+public class Hand : MonoBehaviour, IHand
 {
     private Transform Transform  ;
     public  float     DistanceRay;
-    public  Torch     TakeTorch  ;
+    public  IItem     TakeTorch  ;
 
     private void Start()
     {
@@ -23,7 +23,7 @@ public class Hand : MonoBehaviour
             if (Hit.transform     != null  )
             if (Hit.transform.tag == "Item")
             {
-                TakeTorch = Hit.transform.GetComponent<Torch>();
+                TakeTorch = Hit.transform.GetComponent<IItem>();
                 TakeTorch.Taking(Transform);
             }
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class View : MonoBehaviour
+public class View : MonoBehaviour, IView
 {
     private Transform Transform;
 

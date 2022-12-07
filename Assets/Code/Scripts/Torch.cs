@@ -1,10 +1,14 @@
 using UnityEngine;
 
-public class Torch : MonoBehaviour
+public class Torch : MonoBehaviour, IItem, ISourceFire
 {
     private bool IsTaken = false;
 
-    public bool Active = false;
+    public bool _Active = false;
+    public bool Active
+    {
+        get => _Active;
+    }
     public GameObject Fire = null;
 
     public float TimeFading  = 5.0f;
@@ -13,7 +17,7 @@ public class Torch : MonoBehaviour
 
     private void Update()
     {
-        if (Active && !IsTaken)
+        if (!IsTaken && _Active)
         {
             Timer += Time.deltaTime;
 
@@ -23,16 +27,18 @@ public class Torch : MonoBehaviour
                 Fading();
             }
         }
+        if (IsTaken && Timer != 0)
+        {
+            Timer = 0;
+        }
     }
     private void OnTriggerEnter(Collider Other)
     {
-        Bonfire SourceFire = Other.attachedRigidbody.GetComponent<Bonfire>();
+        ISourceFire SourceFire = Other.attachedRigidbody.GetComponent<ISourceFire>();
 
         if (SourceFire != null && IsTaken)
         {
             Ignition(SourceFire);
-
-            Debug.Log("Fire! 222");
         }
     }
 
@@ -58,17 +64,17 @@ public class Torch : MonoBehaviour
         ThisTransform.parent = null;
         ThisRigidbody.isKinematic = false;
     }
-    private void Ignition(Bonfire SourceFire)
+    private void Ignition(ISourceFire SourceFire)
     {
         if (SourceFire.Active)
         {
-            Active = true;
+            _Active = true;
             Fire.SetActive(true);
         }
     }
     private void Fading()
     {
-        Active = false;
+        _Active = false;
         Fire.SetActive(false);
     }
 }

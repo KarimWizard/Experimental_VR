@@ -1,28 +1,30 @@
 using UnityEngine;
 
-public class Bonfire : MonoBehaviour
+public class Bonfire : MonoBehaviour, ISourceFire
 {
-    public bool Active = true;
+    public bool _Active = true;
+    public bool Active
+    {
+        get => _Active;
+    }
     public GameObject Fire = null;
 
 
     private void OnTriggerEnter(Collider Other)
     {
-        Torch SourceFire = Other.attachedRigidbody.GetComponent<Torch>();
+        ISourceFire SourceFire = Other.attachedRigidbody.GetComponent<ISourceFire>();
 
         if (SourceFire != null)
         {
             Ignition(SourceFire);
-
-            Debug.Log("Fire! 222");
         }
     }
 
-    private void Ignition(Torch SourceFire)
+    private void Ignition(ISourceFire SourceFire)
     {
         if (SourceFire.Active)
         {
-            Active = true;
+            _Active = true;
             Fire.SetActive(true);
         }
     }
