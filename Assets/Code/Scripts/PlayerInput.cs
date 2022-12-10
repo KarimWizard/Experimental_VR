@@ -2,46 +2,72 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    // Сам скрипт полукостыльный, пока нет адаптации под VR
-    // После появления доступа к гарнитуре необходимо переписать
+    [SerializeField] private Transform ObjBody = null;
+    [SerializeField] private Transform ObjView = null;
+    [SerializeField] private Transform ObjHand = null;
 
-    public Transform TBody = null; // Временный костыль для работы без VR
-    public Transform TView = null; // Временный костыль для работы без VR
-    public Transform THand = null; // Временный костыль для работы без VR
+    private Body Body = null;
+    private View View = null;
+    private Hand Hand = null;
 
-    private IBody Body = null;
-    private IView View = null;
-    private IHand Hand = null;
+    [SerializeField] private KeyCode MoveForward = KeyCode.W;
+    [SerializeField] private KeyCode MoveBack = KeyCode.S;
+    [SerializeField] private KeyCode MoveLeft = KeyCode.A;
+    [SerializeField] private KeyCode MoveRight = KeyCode.D;
 
-    public KeyCode MoveForward = KeyCode.W;
-    public KeyCode MoveBack    = KeyCode.S;
-    public KeyCode MoveLeft    = KeyCode.A;
-    public KeyCode MoveRight   = KeyCode.D;
+    [SerializeField] private KeyCode HandActionA = KeyCode.Mouse0;
+    [SerializeField] private KeyCode HandActionB = KeyCode.Mouse1;
 
-    public KeyCode HandActionA = KeyCode.Q;
-    public KeyCode HandActionB = KeyCode.E;
-
-    public float SensitivityMouse = 2.5f;
+    [SerializeField] private float SensitivityMouse = 2.5f;
 
     private void Start()
     {
-        Body = TBody.GetComponent<IBody>(); // Временный костыль для работы без VR
-        View = TView.GetComponent<IView>(); // Временный костыль для работы без VR
-        Hand = THand.GetComponent<IHand>(); // Временный костыль для работы без VR
+        Body = ObjBody.GetComponent<Body>();
+        View = ObjView.GetComponent<View>();
+        Hand = ObjHand.GetComponent<Hand>();
     }
     private void Update()
     {
-        Body.MoveForward(Input.GetKey(MoveForward));
-        Body.MoveBack   (Input.GetKey(MoveBack   ));
-        Body.MoveLeft   (Input.GetKey(MoveLeft   ));
-        Body.MoveRight  (Input.GetKey(MoveRight  ));
+        InputBody();
+        InputView();
+        InputHand();
+    }
 
-        Body.RotationMove(View.RotationViewX());
+    private void InputBody() 
+    { 
+        float MoveF = Input.GetKey(MoveForward) ? 1.0f : 0.0f;
+        float MoveB = Input.GetKey(MoveBack) ? 1.0f : 0.0f;
+        float MoveL = Input.GetKey(MoveLeft) ? 1.0f : 0.0f;
+        float MoveR = Input.GetKey(MoveRight) ? 1.0f : 0.0f;
 
+        Vector2 DirectionStep = new Vector2();
+        DirectionStep.x = MoveR - MoveL;
+        DirectionStep.y = MoveF - MoveB;
+        DirectionStep = DirectionStep.normalized;
+
+        Body.PositionMove(DirectionStep, View.RotationViewX());
+    }
+    private void InputView() 
+    { 
         View.RotateViewX( Input.GetAxis("Mouse X") * SensitivityMouse);
         View.RotateViewY(-Input.GetAxis("Mouse Y") * SensitivityMouse);
+    }
+    private void InputHand() 
+    { 
+        if (Input.GetKeyDown(HandActionA))
+        {
+            Hand.RayCasting(true);
+        }
+        if (Input.GetKeyUp(HandActionA))
+        {
+            Hand.TakeObject();
 
-        if (Input.GetKeyDown(HandActionA)) Hand.TakeObject ();
-        if (Input.GetKeyDown(HandActionB)) Hand.ThrowObject();
+            Hand.RayCasting(false);
+        }
+
+        if (Input.GetKeyDown(HandActionB)) 
+        {
+            Hand.ThrowObject();
+        }
     }
 }

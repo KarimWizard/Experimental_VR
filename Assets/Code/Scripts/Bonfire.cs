@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Bonfire : MonoBehaviour, ISourceFire
 {
-    public bool _Active = true;
+    [SerializeField] private bool _Active = true;
     public bool Active
     {
         get => _Active;
     }
-    public GameObject Fire = null;
+    [SerializeField] private GameObject Fire = null;
 
 
     private void OnTriggerEnter(Collider Other)

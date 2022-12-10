@@ -1,18 +1,19 @@
 using UnityEngine;
 
-public class Torch : MonoBehaviour, IItem, ISourceFire
+public class Torch : MonoBehaviour, ITakebleObject, ISourceFire
 {
     private bool IsTaken = false;
 
-    public bool _Active = false;
+    private bool _Active = false;
     public bool Active
     {
         get => _Active;
     }
-    public GameObject Fire = null;
+    [SerializeField] private GameObject Fire = null;
+    [SerializeField] private GameObject Outline = null;
 
-    public float TimeFading  = 5.0f;
-    public float Timer = 0.0f;
+    [SerializeField] private float TimeFading  = 5.0f;
+    [SerializeField] private float Timer = 0.0f;
 
 
     private void Update()
@@ -34,11 +35,16 @@ public class Torch : MonoBehaviour, IItem, ISourceFire
     }
     private void OnTriggerEnter(Collider Other)
     {
-        ISourceFire SourceFire = Other.attachedRigidbody.GetComponent<ISourceFire>();
+        Rigidbody RigidbodyOther =  Other.attachedRigidbody;
 
-        if (SourceFire != null && IsTaken)
+        if (RigidbodyOther != null)
         {
-            Ignition(SourceFire);
+            ISourceFire SourceFire = Other.attachedRigidbody.GetComponent<ISourceFire>();
+
+            if (SourceFire != null && IsTaken)
+            {
+                Ignition(SourceFire);
+            }
         }
     }
 
@@ -76,5 +82,14 @@ public class Torch : MonoBehaviour, IItem, ISourceFire
     {
         _Active = false;
         Fire.SetActive(false);
+    }
+
+    public void ViewEnter()
+    {
+        Outline.SetActive(true);
+    }
+    public void ViewExit()
+    {
+        Outline.SetActive(false);
     }
 }

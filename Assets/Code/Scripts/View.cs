@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class View : MonoBehaviour, IView
+public class View : MonoBehaviour
 {
     private Transform Transform;
 
     private float RotateX;
     private float RotateY;
 
-    public float MaxAngleUp  ;
-    public float MaxAngleDown;
+    [SerializeField] private float MaxAngleUp;
+    [SerializeField] private float MaxAngleDown;
 
     private void Start()
     {
