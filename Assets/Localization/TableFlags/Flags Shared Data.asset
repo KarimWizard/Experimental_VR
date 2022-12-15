@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Flags Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: Flags
+  m_TableCollectionNameGuidString: a5df6f2bd0521d344ac67c4eb5af7d07
+  m_Entries:
+  - m_Id: 2727020732416
+    m_Key: Country
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items:
+    - rid: 7360906350500773938
+  m_KeyGenerator:
+    rid: 7360906350500773926
+  references:
+    version: 2
+    RefIds:
+    - rid: 7360906350500773926
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1671138552062
+    - rid: 7360906350500773938
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 2727020732416
+          m_TableCodes:
+          - de
+          - ru
+          - en
+        m_TypeString: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
