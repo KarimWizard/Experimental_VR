@@ -29,19 +29,16 @@ public class PaintCanvas : MonoBehaviour
     }
     public void CheckCorrect()
     {
-    // Texture2D PaintImage  = Canvas.GetTexture("_Paint" ) as Texture2D;
-    // Texture2D OriginImage = Canvas.GetTexture("_Origin") as Texture2D;
+        Texture2D PaintImage  = Canvas.GetTexture("_Paint" ) as Texture2D;
+        Texture2D OriginImage = Canvas.GetTexture("_Origin") as Texture2D;
 
-    // Color32[] PixelsPaint  = PaintImage .GetPixels32();
-    // Color32[] PixelsOrigin = OriginImage.GetPixels32();
+        Color32[] PixelsPaint  = PaintImage .GetPixels32();
+        Color32[] PixelsOrigin = OriginImage.GetPixels32();
 
-    // for (int i = 0; i < PixelsPaint .Length; i++)
-    // //for (int j = 0; j < PixelsOrigin.Length; j++)
-    // {
-    //     if (PixelsPaint[i] == new Color32(0, 0, 0, 0))
-    //     {
-    //         Debug.Log("Black!");
-    //     }
-    // }
+        for (int i = 0; i < PixelsPaint .Length; i++)
+        for (int j = 0; j < PixelsOrigin.Length; j++)
+        {
+  
+        }
     }
 }

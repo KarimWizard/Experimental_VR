@@ -44,7 +44,7 @@ Material:
     m_Floats:
     - _DrawCoordX: 0.171
     - _DrawCoordY: 0.703
-    - _Size: 0.125
+    - _Size: 0.1
     m_Colors:
     - _DrawPosition: {r: -1, g: -1, b: 0, a: 0}
   m_BuildTextureStacks: []
